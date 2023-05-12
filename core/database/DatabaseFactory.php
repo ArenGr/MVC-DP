@@ -6,6 +6,11 @@ use Exception;
 
 class DatabaseFactory
 {
+    /**
+     * @param $dbType
+     * @return MySqlDatabase|PostgreSqlDatabase
+     * @throws Exception
+     */
     public static function createDatabase($dbType)
     {
         switch ($dbType) {

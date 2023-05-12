@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
 use App\Services\UserService;
-use Core\Config\Config;
 use core\Controller;
 
 class UserController extends Controller
@@ -18,6 +16,7 @@ class UserController extends Controller
 
     public function index()
     {
+//        var_dump("aaa");exit();
         return $this->userService->getUserById();
     }
 }

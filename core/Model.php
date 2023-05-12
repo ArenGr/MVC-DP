@@ -13,7 +13,6 @@ abstract class Model
     public function __construct()
     {
         $this->pdo = PDOConnection::getInstance()->getConnection();
-        var_dump($this->pdo);exit();
     }
 
     private function prepare(string $statement)

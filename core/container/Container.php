@@ -1,5 +1,5 @@
 <?php
-namespace core\psr\container;
+namespace core\container;
 
 use Closure;
 use Exception;

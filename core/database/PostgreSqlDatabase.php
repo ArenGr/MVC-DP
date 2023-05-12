@@ -9,13 +9,17 @@ use PDOException;
 
 class PostgreSqlDatabase implements DatabaseInterface
 {
+    /**
+     * @return PDO|void
+     */
     public function connect()
     {
-        $host = Config::get('databases.postgresql.host');
-        $port = Config::get('databases.postgresql.port');
-        $name = Config::get('databases.postgresql.name');
-        $user = Config::get('databases.postgresql.user');
-        $pass = Config::get('databases.postgresql.pass');
+
+        $host = Config::get('databases.postgre.host');
+        $port = Config::get('databases.postgre.port');
+        $name = Config::get('databases.postgre.name');
+        $user = Config::get('databases.postgre.user');
+        $pass = Config::get('databases.postgre.pass');
 
         $dsn = "pgsql:host={$host};port={$port};dbname={$name}";
 

@@ -4,8 +4,15 @@ namespace Core\Config;
 
 class Config
 {
+    /**
+     * @var array
+     */
     private static array $config = array();
 
+    /**
+     * @param $key
+     * @return array|mixed|null
+     */
     private static function handle($key)
     {
         $keys = explode('.', $key);
@@ -22,6 +29,10 @@ class Config
         return $value;
     }
 
+    /**
+     * @param $key
+     * @return array|mixed|null
+     */
     public static function get($key)
     {
         if (empty(self::$config)) {

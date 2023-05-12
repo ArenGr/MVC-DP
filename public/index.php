@@ -1,7 +1,7 @@
 <?php
 
+use core\container\Container;
 use Core\Router;
-use Core\Psr\Container\Container;
 
 require 'bootstrap.php';
 

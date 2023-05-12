@@ -8,14 +8,14 @@ return array(
             'port' => $_ENV['MYSQL_PORT'],
             'name' => $_ENV['MYSQL_NAME'],
             'user' => $_ENV['MYSQL_USER'],
-            'pass' => $_ENV['MYSQL_PORT'],
+            'pass' => $_ENV['MYSQL_PASS'],
         ),
         'postgre' => array(
             'host' => $_ENV['POSTGRESQL_HOST'],
             'port' => $_ENV['POSTGRESQL_PORT'],
             'name' => $_ENV['POSTGRESQL_NAME'],
             'user' => $_ENV['POSTGRESQL_USER'],
-            'pass' => $_ENV['POSTGRESQL_PORT'],
+            'pass' => $_ENV['POSTGRESQL_PASS'],
         )
     ),
     'urls' => array(

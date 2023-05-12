@@ -7,9 +7,12 @@ use Exception;
 
 class PDOConnection
 {
-    private static $instance = null;
-    private $pdo;
+    private static ?PDOConnection $instance = null;
+    private ?\PDO $pdo;
 
+    /**
+     * @throws Exception
+     */
     private function __construct()
     {
         switch (Config::get('databases.default')) {
@@ -26,7 +29,7 @@ class PDOConnection
         }
     }
 
-    public static function getInstance()
+    public static function getInstance(): ?PDOConnection
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -35,7 +38,7 @@ class PDOConnection
         return self::$instance;
     }
 
-    public function getConnection()
+    public function getConnection(): ?\PDO
     {
         return $this->pdo;
     }

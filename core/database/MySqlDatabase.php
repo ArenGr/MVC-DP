@@ -8,6 +8,9 @@ use Core\Config\Config;
 
 class MySqlDatabase implements DatabaseInterface
 {
+    /**
+     * @return PDO|void
+     */
     public function connect()
     {
         $host = Config::get('databases.postgresql.host');

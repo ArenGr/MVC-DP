@@ -3,7 +3,7 @@
 namespace Core;
 
 use App\Helpers\NotFoundHandler;
-use Core\Psr\Container\ContainerInterface;
+use core\container\ContainerInterface;
 
 class Router
 {
