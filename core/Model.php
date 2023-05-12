@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Core;
+namespace Core;
 
-use App\Models\Database\PDOConnection;
-use App\Models\Database\PDOInterface;
+use Core\Database\PDOConnection;
 use PDO;
 
-
-abstract class Model implements PDOInterface
+abstract class Model
 {
     private $pdo;
     protected $stmt;
@@ -15,6 +13,7 @@ abstract class Model implements PDOInterface
     public function __construct()
     {
         $this->pdo = PDOConnection::getInstance()->getConnection();
+        var_dump($this->pdo);exit();
     }
 
     private function prepare(string $statement)

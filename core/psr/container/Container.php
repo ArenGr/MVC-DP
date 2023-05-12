@@ -1,5 +1,5 @@
 <?php
-namespace App\Core\Psr\Container;
+namespace core\psr\container;
 
 use Closure;
 use Exception;
@@ -10,6 +10,7 @@ use ReflectionClass;
  */
 class Container implements ContainerInterface
 {
+
     /**
      * @var array
      */
@@ -17,11 +18,31 @@ class Container implements ContainerInterface
 
 
     /**
-     * @inheritDoc
+     * @param       $id
+     * @param array $parameters
+     *
+     * @return mixed|null|object
+     * @throws Exception
+     */
+    public function get($id, $parameters = [])
+    {
+        if (!$this->has($id)) {
+            $this->set($id);
+        }
+
+        return $this->resolve($this->instances[$id], $parameters);
+    }
+
+
+    /**
+     * @param       $id
+     *
+     * @return bool
+     * @throws Exception
      */
     public function has($id)
     {
-        // TODO: Implement has() method.
+        return isset($this->instances[$id]);
     }
 
     /**
@@ -36,22 +57,6 @@ class Container implements ContainerInterface
         $this->instances[$abstract] = $concrete;
     }
 
-    /**
-     * @param       $abstract
-     * @param array $parameters
-     *
-     * @return mixed|null|object
-     * @throws Exception
-     */
-    public function get($abstract, $parameters = [])
-    {
-        // if we don't have it, just register it
-        if (!isset($this->instances[$abstract])) {
-            $this->set($abstract);
-        }
-
-        return $this->resolve($this->instances[$abstract], $parameters);
-    }
 
     /**
      * resolve single
@@ -69,20 +74,15 @@ class Container implements ContainerInterface
         }
 
         $reflector = new ReflectionClass($concrete);
-//        var_dump($reflector);
-        // check if class is instantiable
         if (!$reflector->isInstantiable()) {
             throw new Exception("Class {$concrete} is not instantiable");
         }
 
-        // get class constructor
         $constructor = $reflector->getConstructor();
         if (is_null($constructor)) {
-            // get new instance from class
             return $reflector->newInstance();
         }
 
-        // get constructor params
         $parameters   = $constructor->getParameters();
         $dependencies = $this->getDependencies($parameters);
 
@@ -102,18 +102,14 @@ class Container implements ContainerInterface
     {
         $dependencies = [];
         foreach ($parameters as $parameter) {
-            // get the type hinted class
             $dependency = $parameter->getClass();
             if ($dependency === NULL) {
-                // check if default value for a parameter is available
                 if ($parameter->isDefaultValueAvailable()) {
-                    // get default value of parameter
                     $dependencies[] = $parameter->getDefaultValue();
                 } else {
                     throw new Exception("Can not resolve class dependency {$parameter->name}");
                 }
             } else {
-                // get dependency resolved
                 $dependencies[] = $this->get($dependency->name);
             }
         }

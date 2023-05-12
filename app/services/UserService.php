@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Repositories\UserRepositoriesInterface;
 use App\Repositories\UserRepository;
-use App\Services\Interfaces\UserServiceInterface;
 
-class UserService implements UserServiceInterface
+class UserService
 {
     private $userRepo;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepo = $userRepository;
@@ -17,7 +16,7 @@ class UserService implements UserServiceInterface
     public function getUserById()
     {
         $this->userRepo->getQuery();
-        echo "user from userservice retrieved";
+        echo "autosave works";
         // implementation details to retrieve user by ID
     }
 }

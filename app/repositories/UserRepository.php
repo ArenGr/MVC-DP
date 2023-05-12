@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-class UserRepository implements UserRepositoriesInterface
+use Core\Repository;
+
+class UserRepository extends Repository
 {
     public function getQuery() {
-        echo 'Data from db recieved';
-        return 1;
+        return $this->run("SELECT * FROM USERS");
     }
-
 }

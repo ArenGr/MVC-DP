@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core\psr\container;
+namespace core\psr\container;
 
 interface ContainerExceptionInterface
 {
