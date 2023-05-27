@@ -1,21 +1,19 @@
 <?php
-namespace core\container;
+
+namespace Core\Container;
 
 use Closure;
 use Exception;
 use ReflectionClass;
 
-/**
- * Class Container
- */
+use Psr\Container\ContainerInterface;
+
 class Container implements ContainerInterface
 {
-
     /**
      * @var array
      */
     protected $instances = [];
-
 
     /**
      * @param       $id
@@ -40,7 +38,7 @@ class Container implements ContainerInterface
      * @return bool
      * @throws Exception
      */
-    public function has($id)
+    public function has($id): bool
     {
         return isset($this->instances[$id]);
     }
@@ -56,7 +54,6 @@ class Container implements ContainerInterface
         }
         $this->instances[$abstract] = $concrete;
     }
-
 
     /**
      * resolve single
@@ -83,10 +80,9 @@ class Container implements ContainerInterface
             return $reflector->newInstance();
         }
 
-        $parameters   = $constructor->getParameters();
+        $parameters = $constructor->getParameters();
         $dependencies = $this->getDependencies($parameters);
 
-        // get new instance with dependencies resolved
         return $reflector->newInstanceArgs($dependencies);
     }
 

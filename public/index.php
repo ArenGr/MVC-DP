@@ -1,12 +1,10 @@
 <?php
+use Core\App\Router;
+use Core\Container\Container;
 
-use core\container\Container;
-use Core\Router;
+require $_SERVER['DOCUMENT_ROOT'] . '/core/bootstrap.php';
 
-require 'bootstrap.php';
-
-spl_autoload_register(function ($class)
-{
+spl_autoload_register(function ($class) {
     $dirNames = explode('\\', $class);
     $className = array_pop($dirNames);
     $file = APP_ROOT . '/' . implode('/', array_map('lcfirst', $dirNames)) . "/$className.php";

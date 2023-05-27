@@ -2,12 +2,19 @@
 
 namespace App\Repositories;
 
-use Core\Repository;
+use App\Models\User;
 
-class UserRepository extends Repository
+class UserRepository extends User
 {
-    public function getQuery() {
-        $a = $this->run("SELECT * FROM users");
-        var_dump($a);exit();
+    public function getUserById($id)
+    {
+        $query = sprintf("SELECT * FROM %s WHERE id = %d", $this->table, $id);
+        return $this->getQuery($query);
+    }
+
+    public function getAllUsers()
+    {
+        $query = sprintf("SELECT * FROM %s", $this->table);
+        return $this->getQuery($query);
     }
 }

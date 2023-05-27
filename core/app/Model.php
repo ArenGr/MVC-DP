@@ -1,18 +1,18 @@
 <?php
 
-namespace Core;
+namespace Core\App;
 
-use Core\Database\PDOConnection;
+use Core\Database\Pdo\PDODatabaseConnaction;
 use PDO;
 
-abstract class Model
+class Model extends PDODatabaseConnaction
 {
     private $pdo;
     protected $stmt;
 
     public function __construct()
     {
-        $this->pdo = PDOConnection::getInstance()->getConnection();
+        $this->pdo = self::getInstance()->getConnection();
     }
 
     private function prepare(string $statement)
@@ -26,14 +26,13 @@ abstract class Model
     {
         if (!empty($params)) {
             foreach ($params as $param => $value) {
-                $this->stmt->bindValue(`:${param}`, $value);
+                $this->stmt->bindValue(`:{$param}`, $value);
             }
             return $this;
         }
 
         return $this;
     }
-
 
     private function execute()
     {
@@ -46,7 +45,7 @@ abstract class Model
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function run($statement, $params = [])
+    public function getQuery($statement, $params = [])
     {
         $result = $this->prepare($statement)->bind($params)->execute()->fetchAll();
         return $result;

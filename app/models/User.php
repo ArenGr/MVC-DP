@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use Core\Model;
+use Core\App\Model;
 
 class User extends Model
 {
-    public function getAllUsers()
-    {
-        return $this->run("Select * from users");
-    }
+    protected string $table = 'users';
 }

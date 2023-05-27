@@ -3,20 +3,23 @@
 namespace App\Controllers;
 
 use App\Services\UserService;
-use core\Controller;
+use Core\App\Controller;
 
 class UserController extends Controller
 {
-    private $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     public function index()
     {
-//        var_dump("aaa");exit();
-        return $this->userService->getUserById();
+        $this->view()->render('home');
+    }
+
+    public function show($id)
+    {
+        $data = $this->userService->getUser($id);
+        $this->view()->render('profile', ['data' => $data]);
+
     }
 }

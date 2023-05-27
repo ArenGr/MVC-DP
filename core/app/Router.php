@@ -1,19 +1,19 @@
 <?php
 
-namespace Core;
+namespace Core\App;
 
-use App\Helpers\NotFoundHandler;
-use core\container\ContainerInterface;
+use Core\Config\Config;
+use Core\Exceptions\NotFoundException;
+use Psr\Container\ContainerInterface;
+
 
 class Router
 {
-    private ContainerInterface $container;
     private array $routes;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(private ContainerInterface $container)
     {
-        $this->container = $container;
-        $this->routes = require_once($_SERVER['DOCUMENT_ROOT'] . '/config/routes/routes.php');
+        $this->routes = require_once(Config::get('paths.routes').'/routes.php');
     }
 
     public function run()
@@ -25,7 +25,7 @@ class Router
                 return 0;
             }
         }
-        NotFoundHandler::handle();
+        NotFoundException::throw();
     }
 
     public function call($controller, $action, $params)
