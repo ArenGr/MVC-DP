@@ -1,11 +1,22 @@
 <?php
 
-namespace Core\Database\pdo;
+namespace Core\Database\Pdo;
 
-use App\Databases\PDO;
+use Core\Database\Pdo\PDODatabaseConnaction;
+use PDO;
 
-class PDODatabaseExtension {
+class PDODatabaseExtension extends PDODatabaseConnaction 
+{
     
+    private $pdo;
+
+    protected $stmt;
+
+    public function __construct()
+    {
+        $this->pdo = self::getInstance()->getConnection();
+    }
+
     private function prepare(string $statement)
     {
         $this->stmt = $this->pdo->prepare($statement);
@@ -19,7 +30,6 @@ class PDODatabaseExtension {
             foreach ($params as $param => $value) {
                 $this->stmt->bindValue(`:{$param}`, $value);
             }
-            return $this;
         }
 
         return $this;
